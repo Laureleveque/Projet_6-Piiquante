@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-const Sauces = require("../models/sauces");
+const Sauces = require("../modele/sauces");
 
 // route récupération d'un tableau de toutes les sauces
 

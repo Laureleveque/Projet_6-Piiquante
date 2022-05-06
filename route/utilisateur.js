@@ -2,13 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const Signup = require("../models/signup");
-
-const Login = require("../models/login");
+const utilisateur = require("../modele/utilisateur");
 
 // route inscription
 
-router.post("/signup", (req, res, next) => {
+router.post("/utilisateur", (req, res, next) => {
   delete req.body._id;
   const signup = new Signup({
     ...req.body,
@@ -21,7 +19,7 @@ router.post("/signup", (req, res, next) => {
 
 // route connection
 
-router.post("/login", (req, res, next) => {
+router.post("/utilisateur", (req, res, next) => {
   delete req.body._id;
   const login = new Login({
     ...req.body,

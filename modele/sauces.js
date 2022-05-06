@@ -3,7 +3,6 @@
 const mongoose = require("mongoose"); // importation de mongoose
 
 const sauceSchema = mongoose.Schema({
-  // méthode Schema mise à disposition par Mongoose
   title: { type: String, required: true },
   userId: { type: String, required: true },
   name: { type: String, required: true },

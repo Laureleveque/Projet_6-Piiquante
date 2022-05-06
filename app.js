@@ -2,11 +2,11 @@ const express = require("express"); // importation d'Express
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose"); // importation de mongoose
 
-const sauces = require("./models/sauces");
-const signup = require("./models/signup");
+const sauces = require("./modele/sauces");
+const utilisateur = require("./modele/utilisateur");
 
-const authRoutes = require("./routes/auth");
-const saucesRoutes = require("./routes/sauces");
+const authRoutes = require("./route/utilisateur");
+const saucesRoutes = require("./route/sauces");
 
 const app = express(); // création de la constante app + appel de la méthode Express
 
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api/auth", authRoutes);
+app.use("/api/utilisateur", authRoutes);
 
 app.use("/api/sauces", saucesRoutes);
 
