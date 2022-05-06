@@ -1,8 +1,24 @@
-// fichier de l'application Express
-
 const express = require("express"); // importation d'Express
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose"); // importation de mongoose
+
+const sauces = require("./models/sauces");
+const signup = require("./models/signup");
+
+const authRoutes = require("./routes/auth");
+const saucesRoutes = require("./routes/sauces");
 
 const app = express(); // création de la constante app + appel de la méthode Express
+
+mongoose
+  .connect(
+    "mongodb+srv://Laurence:MongoDB@cluster0.wkqvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log("Connexion à MongoDB réussie !"))
+  .catch(() => console.log("Connexion à MongoDB échouée !"));
+
+app.use(express.json()); // gestion de la requête POST venant de l'application frontend
 
 // permet à toutes les demandes de toutes les origines d'accéder à l'API (requêtes cross-origin)
 
@@ -19,40 +35,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// route pour laquelle nous souhaitons enregistrer cet élément de middleware
+app.use(bodyParser.json());
 
-app.use("http://localhost:3000/api/sauces", (req, res, next) => {
-  const sauces = [
-    {
-      userId: "",
-      name: "",
-      manufacturer: "",
-      description: "",
-      mainPepper: "",
-      imageUrl: "https://",
-      heat: "",
-      likes: "",
-      dislikes: "",
-      usersLiked: "",
-      usersDisliked: "",
-    },
-    {
-      userId: "",
-      name: "",
-      manufacturer: "",
-      description: "",
-      mainPepper: "",
-      imageUrl: "https://",
-      heat: "",
-      likes: "",
-      dislikes: "",
-      usersLiked: "",
-      usersDisliked: "",
-    },
-  ];
-  res.status(200).json(sauces); //articles sous la forme de données JSON, avec un code 200 pour une demande réussie.
-});
+app.use("/api/auth", authRoutes);
 
-module.exports = app; // exportation de cette application
+app.use("/api/sauces", saucesRoutes);
 
-// exécution de l'application Express
+module.exports = app;
