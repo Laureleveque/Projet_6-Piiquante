@@ -7,8 +7,7 @@ const utilisateurModele = require("./modele/utilisateur");
 
 const utilisateurRoute = require("./route/utilisateur");
 const saucesRoute = require("./route/sauces");
-
-const app = express(); // création de la constante app + appel de la méthode Express
+const userRoute = require("./route/user");
 
 // logique pour se connecter à mongoDB
 
@@ -20,7 +19,9 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-app.use(express.json()); // gestion de la requête POST venant de l'application frontend
+//app.use(express.json()); // gestion de la requête POST venant de l'application frontend
+
+const app = express(); // création de la constante app + appel de la méthode Express
 
 // CORS : permet à toutes les demandes de toutes les origines d'accéder à l'API (requêtes cross-origin)
 
@@ -39,8 +40,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api/utilisateur", utilisateurRoute);
+app.use("/api/utilisateur", utilisateurRoute); // route attendue par le frontend
 
 app.use("/api/sauces", saucesRoute);
+
+app.use("/api/utilisateur", userRoute);
 
 module.exports = app;
