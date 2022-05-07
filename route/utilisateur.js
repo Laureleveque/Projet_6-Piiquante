@@ -1,33 +1,12 @@
 const express = require("express");
 
-const router = express.Router();
+const router = express.Router(); // création d'un router avec la méthode Router
 
-const utilisateur = require("../modele/utilisateur");
+//const utilisateur = require("../modele/utilisateur");
 
-// route inscription
+const utilisateurCtrl = require("../controleur/utilisateur");
+router.post("/", utilisateurCtrl.createUtilisateur);
 
-router.post("/utilisateur", (req, res, next) => {
-  delete req.body._id;
-  const signup = new Signup({
-    ...req.body,
-  });
-  signup
-    .save()
-    .then(() => res.status(201).json({ message: "utilisateur enregistré !" }))
-    .catch((error) => res.status(400).json({ error }));
-});
+router.post("/", utilisateurCtrl.getUtilisateur);
 
-// route connection
-
-router.post("/utilisateur", (req, res, next) => {
-  delete req.body._id;
-  const login = new Login({
-    ...req.body,
-  });
-  login
-    .save()
-    .then(() => res.status(201).json({ message: "utilisateur connecté !" }))
-    .catch((error) => res.status(400).json({ error }));
-});
-
-module.exports = router;
+module.exports = router; // on réexporte le router

@@ -2,13 +2,15 @@ const express = require("express"); // importation d'Express
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose"); // importation de mongoose
 
-const sauces = require("./modele/sauces");
-const utilisateur = require("./modele/utilisateur");
+const saucesModele = require("./modele/sauces");
+const utilisateurModele = require("./modele/utilisateur");
 
-const authRoutes = require("./route/utilisateur");
-const saucesRoutes = require("./route/sauces");
+const utilisateurRoute = require("./route/utilisateur");
+const saucesRoute = require("./route/sauces");
 
 const app = express(); // création de la constante app + appel de la méthode Express
+
+// logique pour se connecter à mongoDB
 
 mongoose
   .connect(
@@ -20,7 +22,7 @@ mongoose
 
 app.use(express.json()); // gestion de la requête POST venant de l'application frontend
 
-// permet à toutes les demandes de toutes les origines d'accéder à l'API (requêtes cross-origin)
+// CORS : permet à toutes les demandes de toutes les origines d'accéder à l'API (requêtes cross-origin)
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -37,8 +39,8 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api/utilisateur", authRoutes);
+app.use("/api/utilisateur", utilisateurRoute);
 
-app.use("/api/sauces", saucesRoutes);
+app.use("/api/sauces", saucesRoute);
 
 module.exports = app;
