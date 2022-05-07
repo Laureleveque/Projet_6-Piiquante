@@ -3,10 +3,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose"); // importation de mongoose
 
 const saucesModele = require("./modele/sauces");
-const utilisateurModele = require("./modele/utilisateur");
 const userModele = require("./modele/user");
 
-const utilisateurRoute = require("./route/utilisateur");
 const saucesRoute = require("./route/sauces");
 const userRoute = require("./route/user");
 
@@ -42,8 +40,6 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 // routes attendues par le frontend
-
-app.use("/api/utilisateur", utilisateurRoute);
 
 app.use("/api/sauces", saucesRoute);
 
