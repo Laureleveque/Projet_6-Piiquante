@@ -2,13 +2,13 @@ const bcrypt = require("bcrypt"); // package de chiffrement
 
 const User = require("../modele/User");
 
-// hachage du mot de passe (fonction asynchrone)
+// nouvel utilisateur - hachage du mot de passe (fonction asynchrone)
 
 exports.signup = (req, res, next) => {
   bcrypt
     .hash(req.body.password, 10) // 10 tours de l'algorithme de cryptage
     .then((hash) => {
-      // récupération diu mot de passe
+      // récupération du mot de passe
       const user = new User({
         // création du nouvel utilisateur
         email: req.body.email,
@@ -21,6 +21,8 @@ exports.signup = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
+
+// connection de l'utilisateur
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })

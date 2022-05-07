@@ -4,6 +4,7 @@ const mongoose = require("mongoose"); // importation de mongoose
 
 const saucesModele = require("./modele/sauces");
 const utilisateurModele = require("./modele/utilisateur");
+const userModele = require("./modele/user");
 
 const utilisateurRoute = require("./route/utilisateur");
 const saucesRoute = require("./route/sauces");
@@ -40,10 +41,12 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.use("/api/utilisateur", utilisateurRoute); // route attendue par le frontend
+// routes attendues par le frontend
+
+app.use("/api/utilisateur", utilisateurRoute);
 
 app.use("/api/sauces", saucesRoute);
 
-app.use("/api/utilisateur", userRoute);
+app.use("/api/user", userRoute);
 
 module.exports = app;
