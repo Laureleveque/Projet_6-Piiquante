@@ -1,6 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"); // on utilise mongoose pour créer ce schéma
 
 const uniqueValidator = require("mongoose-unique-validator"); // email unique par utilisateur
+
+// création du schéma de données pour la base de données MongoDB
 
 const userSchema = mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -9,5 +11,5 @@ const userSchema = mongoose.Schema({
 
 userSchema.plugin(uniqueValidator); // améliore les messages d'erreur lors de l'enregistrement de données uniques
 
-// exportation de ce schéma en tant que modèle Mongoose appelé login, le rendant par là même disponible pour notre application Express.
+// exportation de ce schéma en tant que modèle Mongoose
 module.exports = mongoose.model("User", userSchema);

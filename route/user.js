@@ -1,5 +1,6 @@
 const express = require("express");
-const router = express.Router();
+
+const router = express.Router(); // création d'un router avec la méthode Router
 
 const userCtrl = require("../controleur/user");
 

@@ -1,10 +1,10 @@
-const Sauces = require("../modele/sauces");
+const Sauce = require("../modele/sauce");
 
 // route récupération d'un tableau de toutes les sauces
 
 exports.getAllSauces = (req, res, next) => {
-  Sauces.find()
-    .then((sauces) => res.status(200).json(sauces))
+  Sauce.find()
+    .then((sauce) => res.status(200).json(sauce))
     .catch((error) => res.status(400).json({ error }));
 };
 
@@ -20,11 +20,10 @@ exports.getOneSauce = (req, res, next) => {
 
 exports.createSauce = (req, res, next) => {
   delete req.body._id;
-  const signup = new sauce({
+  const signup = new Sauce({
     ...req.body,
   });
-  sauces
-    .save()
+  Sauce.save()
     .then(() => res.status(201).json({ message: "Sauce enregistrée !" }))
     .catch((error) => res.status(400).json({ error }));
 };
@@ -39,12 +38,13 @@ exports.modifySauce = (req, res, next) => {
 
 // route suppression d'une sauce spécifique avec l’_id fourni
 
-router.deleteSauce = (req, res, next) => {
+exports.deleteSauce = (req, res, next) => {
   Sauce.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
+/*
 // route like spécifique à l'_id
 
 router.post("/:id/like", (req, res, next) => {
@@ -56,3 +56,4 @@ router.post("/:id/like", (req, res, next) => {
 router.post("/:id/dislike", (req, res, next) => {
   //...
 });
+*/
