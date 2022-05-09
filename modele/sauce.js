@@ -1,9 +1,8 @@
 const mongoose = require("mongoose"); // on utilise mongoose pour créer ce schéma
 
-// création du schéma de données
+// utilisation de Mongoose pour créer un schéma de données pour la base de données MongoDB
 
 const sauceSchema = mongoose.Schema({
-  title: { type: String, required: true },
   userId: { type: String, required: true },
   name: { type: String, required: true },
   manufacturer: { type: String, required: true },
@@ -17,5 +16,5 @@ const sauceSchema = mongoose.Schema({
   usersDisliked: ["String <userId>"],
 });
 
-// exportation de ce schéma en tant que modèle Mongoose appelé « Sauces », le rendant disponible pour notre application Express.
+// exportation de ce schéma en tant que modèle Mongoose appelé « Sauce », le rendant disponible pour l'application Express.
 module.exports = mongoose.model("Sauce", sauceSchema);

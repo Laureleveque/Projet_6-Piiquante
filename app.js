@@ -2,7 +2,7 @@
 const express = require("express");
 
 // création d'une application express
-const app = express(); // création de la constante app pour l'application + appel de la méthode Express
+const app = express(); // appel de la méthode Express
 
 // gestion de la requête POST venant de l'application frontend
 app.use(express.json()); // accès au corps json de la requête
@@ -10,14 +10,15 @@ app.use(express.json()); // accès au corps json de la requête
 // importations
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require("path");
 
-const sauceModele = require("./modele/sauce");
-const userModele = require("./modele/user");
+const sauceSchema = require("./modele/sauce");
+const userSchema = require("./modele/user");
 
 const sauceRoute = require("./route/sauce");
 const userRoute = require("./route/user");
 
-// logique pour se connecter à mongoDB
+// logique pour se connecter à MongoDB
 mongoose
   .connect(
     "mongodb+srv://Laurence:MongoDB@cluster0.wkqvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -43,10 +44,12 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.use("/images", express.static(path.join(__dirname, "images")));
+
 // routes attendues par le frontend
 
-app.use("/api/sauce", sauceRoute);
+app.use("/api/sauces", sauceRoute);
 
-app.use("/api/user", userRoute);
+app.use("/api/auth", userRoute);
 
 module.exports = app; // exportation de l'application
