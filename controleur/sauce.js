@@ -84,7 +84,7 @@ exports.modifySauce = (req, res, next) => {
 
 /*
 
-// route like spécifique à l'_id
+// route like/dislike spécifique à l'_id
 
 router.post("/:id/like", (req, res, next) => {
   //...

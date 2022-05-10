@@ -9,13 +9,12 @@ const auth = require("../middleware/auth"); // rajout du middleware d'authentifi
 const multer = require("../middleware/multer-config");
 
 const sauceCtrl = require("../controleur/sauce");
-//const userCtrl = require("../controleur/user");
 
-// toutes les routes pour les sauces : CRUD avec middleware d'authentification
+// toutes les routes pour les sauces : CRUD complet avec middleware d'authentification auth
 router.post("/", auth, multer, sauceCtrl.createSauce);
 router.get("/", auth, sauceCtrl.getAllSauces);
 router.get("/:id", auth, sauceCtrl.getOneSauce);
-router.delete("/:id", auth, sauceCtrl.deleteSauce);
 router.put("/:id", auth, multer, sauceCtrl.modifySauce);
+router.delete("/:id", auth, sauceCtrl.deleteSauce);
 
 module.exports = router; // on réexporte le routeur de ce fichier

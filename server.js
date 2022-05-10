@@ -1,9 +1,12 @@
-const http = require("http"); // importation du package http de Node pour créer un serveur
+// Programme : attente et réponse des requêtes http
 
-const app = require("./app"); // importation de app.js
+// importation du package http de Node
+const http = require("http");
 
-// fonction normalizePort : renvoie un port valide
+// importation du fichier app.js
+const app = require("./app");
 
+// fonction normalisation de port : renvoie un port valide
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -18,10 +21,10 @@ const normalizePort = (val) => {
 
 const port = normalizePort(process.env.PORT || "3000");
 
-app.set("port", process.env.PORT || "3000"); // indiquer à l'application express sur quel port elle doit tourner
+// indique à l'application express sur quel port elle doit tourner
+app.set("port", process.env.PORT || "3000");
 
 // fonction errorHandler recherche et gestion des erreurs
-
 const errorHandler = (error) => {
   if (error.syscall !== "listen") {
     throw error;
@@ -43,7 +46,8 @@ const errorHandler = (error) => {
   }
 };
 
-const server = http.createServer(app); // fonction exécutée à chaque appel effectué vers ce serveur
+// fonction exécutée à chaque appel effectué vers le serveur
+const server = http.createServer(app);
 
 server.on("error", errorHandler);
 server.on("listening", () => {
@@ -52,4 +56,5 @@ server.on("listening", () => {
   console.log("Listening on " + bind);
 });
 
-server.listen(process.env.PORT || 3000); // écoute des requêtes envoyées
+// écoute des requêtes envoyées
+server.listen(process.env.PORT || 3000);

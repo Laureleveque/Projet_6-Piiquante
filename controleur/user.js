@@ -8,13 +8,12 @@ const User = require("../modele/user");
 
 exports.signup = (req, res, next) => {
   bcrypt
-    .hash(req.body.password, 10) // 10 tours de l'algorithme de cryptage
+    .hash(req.body.password, 10) // 10 tours de l'algorithme de cryptage pour créer un hash de mot de passe
+    // récupération du mot de passe
     .then((hash) => {
-      // Hachage du mot de passe
-      // récupération du mot de passe
+      // création du nouvel utilisateur
       const user = new User({
-        // création du nouvel utilisateur
-        email: req.body.email, // stokage de l'email
+        email: req.body.email, // stockage de l'email
         password: hash, // stockage du mot de passe crypté
       });
       user
@@ -30,29 +29,28 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email }) // recherche de l'utilisateur avec l'email unique
     .then((user) => {
+      // si mongoose ne trouve pas l'utilisateur
       if (!user) {
-        // si mongoose ne trouve pas l'utilisateur
         return res.status(401).json({ message: "Utilisateur non trouvé !" });
       }
-      bcrypt // sinon comparaison du mot de passe avec le hash enregistré dans le document User
-        .compare(req.body.password, user.password) // fonction compare
+      bcrypt // sinon comparaison du mot de passe avec le hash initial enregistré
+        .compare(req.body.password, user.password)
         .then((valid) => {
+          // si résultat false
           if (!valid) {
-            // si résultat false
             return res
               .status(401)
               .json({ message: "Mot de passe incorrect !" });
           }
           // comparaison true
           res.status(200).json({
-            // reponse ok : renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
+            // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
             userId: user._id,
-
-            // vérification token d'authentification
+            // méthode sign : vérification token d'authentification
             token: jwt.sign(
               { userId: user._id },
-              "RANDOM_TOKEN_SECRET",
               // clé secrète pour l'encodage
+              "RANDOM_TOKEN_SECRET",
               {
                 expiresIn: "24h", // durée de validité du token
               }

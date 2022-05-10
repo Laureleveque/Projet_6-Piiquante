@@ -1,8 +1,8 @@
-// importation d'Express
+// importation du framework Express
 const express = require("express");
 
-// création d'une application express
-const app = express(); // appel de la méthode Express
+// création d'une application express: appel de la méthode Express
+const app = express();
 
 // gestion de la requête POST venant de l'application frontend
 app.use(express.json()); // accès au corps json de la requête
@@ -18,7 +18,7 @@ const userSchema = require("./modele/user");
 const sauceRoute = require("./route/sauce");
 const userRoute = require("./route/user");
 
-// logique pour se connecter à MongoDB
+// connection à MongoDB
 mongoose
   .connect(
     "mongodb+srv://Laurence:MongoDB@cluster0.wkqvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
@@ -28,7 +28,6 @@ mongoose
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 // CORS : permet à toutes les demandes de toutes les origines d'accéder à l'API (requêtes cross-origin)
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -42,14 +41,14 @@ app.use((req, res, next) => {
   next();
 });
 
+// la méthode app.use : attribue un middleware à une route spécifique de l'application
 app.use(bodyParser.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
-
-// routes attendues par le frontend
 
 app.use("/api/sauces", sauceRoute);
 
 app.use("/api/auth", userRoute);
 
-module.exports = app; // exportation de l'application
+// exportation de l'application
+module.exports = app;
