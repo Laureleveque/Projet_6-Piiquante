@@ -9,4 +9,4 @@ const userCtrl = require("../controleur/user");
 router.post("/signup", userCtrl.signup);
 router.post("/login", userCtrl.login);
 
-module.exports = router; // on réexporte le routeur de ce fichier
+module.exports = router; // on exporte le routeur de ce fichier

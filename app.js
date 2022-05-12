@@ -7,6 +7,10 @@ const app = express();
 // gestion de la requête POST venant de l'application frontend
 app.use(express.json()); // accès au corps json de la requête
 
+// importation des variables d'environnement
+const dotenv = require("dotenv");
+dotenv.config();
+
 // importations
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -21,7 +25,7 @@ const userRoute = require("./route/user");
 // connection à MongoDB
 mongoose
   .connect(
-    "mongodb+srv://Laurence:MongoDB@cluster0.wkqvv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    `mongodb+srv://${process.env.DB_user}:${process.env.DB_password}@${process.env.DB_host}/${process.env.DB_name}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
