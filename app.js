@@ -1,11 +1,11 @@
 // importation du framework Express
 const express = require("express");
 
-// création d'une application express: appel de la méthode Express
+// Appel de la méthode Express pour la création de l'application
 const app = express();
 
-// gestion de la requête POST venant de l'application frontend
-app.use(express.json()); // accès au corps json de la requête
+// accès au corps json de la requête
+app.use(express.json());
 
 // importation des variables d'environnement
 const dotenv = require("dotenv");
@@ -45,12 +45,13 @@ app.use((req, res, next) => {
   next();
 });
 
-// la méthode app.use : attribue un middleware à une route spécifique de l'application
+// méthodes app.use
+
 app.use(bodyParser.json());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-app.use("/api/sauces", sauceRoute);
+app.use("/api/sauces", sauceRoute); // fait le lien avec la route /api/sauces et le router sauceRoute
 
 app.use("/api/auth", userRoute);
 

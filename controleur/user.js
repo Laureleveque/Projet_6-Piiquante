@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt"); // importation package de chiffrement
 
 const jwt = require("jsonwebtoken"); // importation package vérification des tokens
 
-const User = require("../modele/user");
+const User = require("../modele/user"); //exportation du modele user
 
 // création d'un nouvel utilisateur
 

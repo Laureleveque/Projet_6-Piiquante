@@ -1,7 +1,7 @@
 // importation de mongoose
 const mongoose = require("mongoose");
 
-// création d'un schéma de données pour la base de données MongoDB
+// la méthode Schéma de mongoose permet de créer un schéma de données pour la base de données MongoDB
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
   name: { type: String, required: true },
@@ -16,5 +16,5 @@ const sauceSchema = mongoose.Schema({
   usersDisliked: ["String <userId>"],
 });
 
-// exportation de ce schéma en tant que modèle Mongoose
+// exportation de ce schéma avec la méthode Model (transforme ce modèle en un modèle utilisable)
 module.exports = mongoose.model("Sauce", sauceSchema);

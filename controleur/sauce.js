@@ -1,9 +1,9 @@
 // Logique métier
 
 const Sauce = require("../modele/sauce");
-const fs = require("fs"); // importation du package fs de Node
+const fs = require("fs"); // importation le module fs de Node pour créer et gérer les fichiers entrants
 
-// route récupérer toutes les sauces
+// route GET récupérer toutes les sauces
 
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
@@ -11,7 +11,7 @@ exports.getAllSauces = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-// route récupérer une sauce spécifique avec l’_id fourni
+// route GET récupérer une sauce spécifique avec l’_id fourni
 
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id }) // comparaison pour récupérer une sauce par son identifiant unique
@@ -21,7 +21,7 @@ exports.getOneSauce = (req, res, next) => {
     );
 };
 
-// route ajouter une sauce par l'utilisateur
+// route POST ajouter une sauce par l'utilisateur
 
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
@@ -43,7 +43,7 @@ exports.createSauce = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-// route supprimer une sauce spécifique avec l’_id fourni
+// route DELETE supprimer une sauce spécifique avec l’_id fourni
 
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
@@ -51,6 +51,7 @@ exports.deleteSauce = (req, res, next) => {
     .then((sauce) => {
       const filename = sauce.imageUrl.split("/images/")[1];
       fs.unlink(`images/${filename}`, () => {
+        // La fonction fs.unlink() permet de supprimer l'image du fichier
         Sauce.deleteOne({ _id: req.params.id })
           .then(() => res.status(200).json({ message: "Sauce supprimée !" }))
           .catch((error) =>
@@ -61,10 +62,9 @@ exports.deleteSauce = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-// route modification/mise à jour d'une sauce spécifique avec l’_id fourni
+// route PUT modification/mise à jour d'une sauce spécifique avec l’_id fourni
 
 exports.modifySauce = (req, res, next) => {
-  // sauce dont l'id est = à l'id envoyé ds les paramètres de requête et le 2ème argument:nouvelle version de la sauce
   const sauceObject = req.file
     ? {
         ...JSON.parse(req.body.sauce),
@@ -73,8 +73,9 @@ exports.modifySauce = (req, res, next) => {
         }`,
       }
     : { ...req.body };
+
+  // mise à jour de la nouvelle version de la sauce
   Sauce.updateOne(
-    // mise à jour
     { _id: req.params.id },
     { ...sauceObject, _id: req.params.id }
   )
@@ -103,7 +104,6 @@ exports.likeSauce = (req, res, next) => {
             likes: sauce.usersLiked.length, // et mise à jour du nombre de likes dans le tableau
           }
         )
-
           .then(() => res.status(200).json({ message: "Sauce likée !" }))
           .catch((error) => res.status(400).json({ error }));
 
@@ -155,7 +155,6 @@ exports.likeSauce = (req, res, next) => {
               // mise à jour de la sauce
               sauce,
               usersDisliked: sauce.usersDisliked,
-
               dislikes: sauce.usersDisliked.length, // mise à jour du nombre de dislikes dans le tableau
             }
           )

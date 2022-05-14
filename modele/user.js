@@ -1,7 +1,7 @@
 // utilisation de mongoose pour créer un schéma de données pour la base de données MongoDB
 const mongoose = require("mongoose");
 
-// email unique par utilisateur
+// assure le caractère unique de l'email
 const uniqueValidator = require("mongoose-unique-validator");
 
 // création d'un schéma de données

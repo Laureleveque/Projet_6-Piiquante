@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken"); // importation du package de vérification 
 module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1]; // récupération du token (2ème élément du tableau)
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // décodage du token
+    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET"); // la méthode verify permet de vérifier la validité d'un token
     const userId = decodedToken.userId; // récupération de l'userId
     // si userId différent du userId
     if (req.body.userId && req.body.userId !== userId) {

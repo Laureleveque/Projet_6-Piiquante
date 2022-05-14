@@ -3,7 +3,7 @@
 // importation du package http de Node
 const http = require("http");
 
-// importation du fichier app.js
+// importation du fichier app.js (application Express)
 const app = require("./app");
 
 // fonction normalisation de port : renvoie un port valide
@@ -19,10 +19,11 @@ const normalizePort = (val) => {
   return false;
 };
 
+// par défaut le port 3000 si non précisé dans la variable d'environnement PORT
 const port = normalizePort(process.env.PORT || "3000");
 
 // indique à l'application express sur quel port elle doit tourner
-app.set("port", process.env.PORT || "3000");
+app.set("port", port);
 
 // fonction errorHandler recherche et gestion des erreurs
 const errorHandler = (error) => {
@@ -57,4 +58,4 @@ server.on("listening", () => {
 });
 
 // écoute des requêtes envoyées
-server.listen(process.env.PORT || 3000);
+server.listen(port);
