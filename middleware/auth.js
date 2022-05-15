@@ -1,6 +1,6 @@
 // middleware d'authentification : user correspondant à celui encodé dans le token
 
-const jwt = require("jsonwebtoken"); // importation du package de vérification des tokens
+const jwt = require("jsonwebtoken"); // importation du package de création et de vérification des tokens
 
 // middleware à ajouter pour sécuriser les routes
 

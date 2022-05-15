@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt"); // importation package de chiffrement
 
 const jwt = require("jsonwebtoken"); // importation package vérification des tokens
 
-const User = require("../modele/user"); //exportation du modele user
+const User = require("../modele/user"); //importation du modele user
 
 // création d'un nouvel utilisateur
 
@@ -46,8 +46,10 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
             userId: user._id,
-            // méthode sign : vérification token d'authentification
+            // on appelle la fonction sign : vérification token d'authentification
             token: jwt.sign(
+              // contient un objet avec les données que l'on veut encoder
+              // identifiant utilisateur du user pour s'assurer que la requête correspond avec l'userId
               { userId: user._id },
               // clé secrète pour l'encodage
               "RANDOM_TOKEN_SECRET",

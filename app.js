@@ -7,7 +7,7 @@ const app = express();
 // accès au corps json de la requête
 app.use(express.json());
 
-// importation des variables d'environnement
+// module pour accéder aux variables d'environnement
 const dotenv = require("dotenv");
 dotenv.config();
 

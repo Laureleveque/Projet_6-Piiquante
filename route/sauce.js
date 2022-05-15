@@ -2,7 +2,8 @@
 
 const express = require("express");
 
-const router = express.Router(); // création d'un routeur avec la méthode Router
+// la méthode router permet de créer des routeurs séparés pour chaque route principale
+const router = express.Router();
 
 const auth = require("../middleware/auth"); // rajout du middleware d'authentification user pour protéger les routes
 
