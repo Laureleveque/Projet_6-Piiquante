@@ -46,12 +46,12 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             // renvoi d'un fichier json avec l'identifiant de l'utilisateur dans la base et un token
             userId: user._id,
-            // on appelle la fonction sign : vérification token d'authentification
+            // on appelle la fonction sign de jsonwebtoken
             token: jwt.sign(
-              // contient un objet avec les données que l'on veut encoder
-              // identifiant utilisateur du user pour s'assurer que la requête correspond avec l'userId
-              { userId: user._id },
-              // clé secrète pour l'encodage
+              // encodage d'un nouveau token
+
+              { userId: user._id }, // le token contient l'id de l'utilisateur
+              // ainsi qu'une clé secrète pour l'encodage
               "RANDOM_TOKEN_SECRET",
               {
                 expiresIn: "24h", // durée de validité du token
