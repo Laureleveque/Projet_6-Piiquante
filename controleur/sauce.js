@@ -92,8 +92,8 @@ exports.likeSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
 
     .then((sauce) => {
-      // si l'utilisateur like
-      if (req.body.like == 1) {
+      // si l'utilisateur like et si l'id n'est pas présent dans le tableau des likes
+      if (req.body.like == 1 && !sauce.usersLiked.includes(req.body.userId)) {
         sauce.usersLiked.push(req.body.userId); // ajout Id de l'utilisateur au tableau des likes
         Sauce.updateOne(
           { _id: req.params.id },
@@ -107,8 +107,11 @@ exports.likeSauce = (req, res, next) => {
           .then(() => res.status(200).json({ message: "Sauce likée !" }))
           .catch((error) => res.status(400).json({ error }));
 
-        // sinon si l'utilisateur dislike
-      } else if (req.body.like == -1) {
+        // sinon si l'utilisateur dislike et si l'id n'est pas présent dans le tableau des dislikes
+      } else if (
+        req.body.like == -1 &&
+        !sauce.usersDisliked.includes(req.body.userId)
+      ) {
         sauce.usersDisliked.push(req.body.userId); // ajout Id de l'utilisateur au tableau des dislikes
         Sauce.updateOne(
           { _id: req.params.id },

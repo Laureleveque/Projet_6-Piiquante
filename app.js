@@ -15,10 +15,10 @@ dotenv.config();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
-
+/*
 const sauceSchema = require("./modele/sauce");
 const userSchema = require("./modele/user");
-
+*/
 const sauceRoute = require("./route/sauce");
 const userRoute = require("./route/user");
 
